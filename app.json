@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "estyleee",
+    "slug": "estyleee",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "fonts": {
+      "Poppins-Regular": "./assets/fonts/Poppins-Regular.ttf",
+      "Poppins-Medium": "./assets/fonts/Poppins-Medium.ttf",
+      "Poppins-Bold": "./assets/fonts/Poppins-Bold.ttf",
+      "PlayfairDisplay-Regular": "./assets/fonts/PlayfairDisplay-Regular.ttf",
+      "PlayfairDisplay-Bold": "./assets/fonts/PlayfairDisplay-Bold.ttf",
+      "PlayfairDisplay-ExtraBold": "./assets/fonts/PlayfairDisplay-ExtraBold.ttf"
+    }
+  }
+}
