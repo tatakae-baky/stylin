@@ -40,7 +40,6 @@ export default function ProductCard({ id, name, brand, price, image, collection,
             resizeMode="cover"
           />
           <View className="absolute bottom-4 left-4">
-            <Text className="text-xl font-bold text-white">{name}</Text>
             <Text className="text-gray-100">{brand}</Text>
             <Text className="text-lg font-bold text-white">{price} BDT</Text>
             {collection && (

@@ -1,37 +1,45 @@
 import { View, SafeAreaView } from 'react-native';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { useNavigation } from 'expo-router';
 import Header from '../components/shared/Header';
 import MasonryGrid from '../components/shared/MasonryGrid';
+import SearchOverlay from '../components/shared/SearchOverlay';
 import { products } from '../../constants/data';
 
-// Sample product data with updated brand logos
-const PRODUCTS = [
-  {
-    name: 'ABC Collection',
-    price: '4200 BDT',
-    brandName: 'Sleek',
-    brandLogo: require('../../assets/images/sleek/sleek_logo.jpg'),
-  },
-  {
-    name: 'Classic Polo Shirt',
-    price: '1500 BDT',
-    brandName: 'Undyingbrand',
-    brandLogo: require('../../assets/images/undyingbrand/undyingbrand_logo.jpg'),
-  },
-  {
-    name: 'Mermaid Collection',
-    price: '2500 BDT',
-    brandName: 'Defclo',
-    brandLogo: require('../../assets/images/defclo/defclo_logo.jpg'),
-  },
-];
+const defaultTabBarStyle = {
+  backgroundColor: '#ffffff',
+  borderTopWidth: 0.5,
+  borderTopColor: '#e5e5e5',
+  height: 60,
+  paddingBottom: 8,
+};
 
 export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('');
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const navigation = useNavigation();
+
+  // Reset tab bar style when component unmounts
+  useEffect(() => {
+    return () => {
+      navigation.setOptions({
+        tabBarStyle: defaultTabBarStyle,
+      });
+    };
+  }, []);
 
   const gridData = useMemo(() => {
-    return products.map(product => ({
+    let filteredProducts = products;
+    
+    if (searchQuery) {
+      filteredProducts = filteredProducts.filter(product => 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.brand.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    return filteredProducts.map(product => ({
       id: product.id,
       image: product.image,
       name: product.name,
@@ -39,16 +47,29 @@ export default function HomeScreen() {
       brandName: product.brand,
       brandLogo: product.brandLogo,
     }));
-  }, []);
+  }, [searchQuery, selectedFilter]);
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
-    // Implement search logic here
   };
 
   const handleFilterSelect = (filter: string) => {
     setSelectedFilter(filter);
-    // Implement filter logic here
+  };
+
+  const handleSearchFocus = () => {
+    setIsSearchActive(true);
+    navigation.setOptions({
+      tabBarStyle: { display: 'none' }
+    });
+  };
+
+  const handleSearchClose = () => {
+    setIsSearchActive(false);
+    setSearchQuery('');
+    navigation.setOptions({
+      tabBarStyle: defaultTabBarStyle
+    });
   };
 
   return (
@@ -56,10 +77,17 @@ export default function HomeScreen() {
       <Header 
         onSearch={handleSearch}
         onFilterSelect={handleFilterSelect}
+        onSearchFocus={handleSearchFocus}
       />
       <View className="flex-1">
         <MasonryGrid data={gridData} />
       </View>
+
+      <SearchOverlay
+        isVisible={isSearchActive}
+        onClose={handleSearchClose}
+        onSearch={handleSearch}
+      />
     </SafeAreaView>
   );
 } 

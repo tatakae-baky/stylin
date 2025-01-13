@@ -90,7 +90,7 @@ export default function ProductScreen() {
           entering={FadeIn.duration(300)}
           className="flex-1"
         >
-          <View className="absolute top-12 left-4 z-10">
+          <View className="absolute top-5 left-7 z-10">
             <TouchableOpacity 
               onPress={() => router.back()}
               className="bg-white rounded-full p-2 shadow-sm"
@@ -99,7 +99,7 @@ export default function ProductScreen() {
             </TouchableOpacity>
           </View>
 
-          <View className="absolute top-12 right-4 z-10">
+          <View className="absolute top-5 right-7 z-10">
             <TouchableOpacity 
               className="bg-white rounded-full p-2 shadow-sm"
             >

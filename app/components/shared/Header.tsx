@@ -10,9 +10,15 @@ interface HeaderProps {
   onSearch?: (text: string) => void;
   onFilterSelect?: (filter: string) => void;
   showFilters?: boolean;
+  onSearchFocus?: () => void;
 }
 
-export default function Header({ onSearch, onFilterSelect, showFilters = true }: HeaderProps) {
+export default function Header({ 
+  onSearch, 
+  onFilterSelect, 
+  showFilters = true,
+  onSearchFocus 
+}: HeaderProps) {
   const { state } = useCart();
   const router = useRouter();
   const cartItemsCount = state.items.reduce((total, item) => total + item.quantity, 0);
@@ -35,7 +41,10 @@ export default function Header({ onSearch, onFilterSelect, showFilters = true }:
             </Text>
           </TouchableOpacity>
           
-          <SearchBar onSearch={onSearch} />
+          <SearchBar 
+            onSearch={onSearch}
+            onFocus={onSearchFocus}
+          />
           
           <TouchableOpacity 
             onPress={() => router.push('/cart')}

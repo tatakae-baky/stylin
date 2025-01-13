@@ -153,7 +153,6 @@ export default function MasonryGrid({ data }: MasonryGridProps) {
         </View>
         
         <View style={styles.detailsContainer}>
-          <Text style={styles.productName} numberOfLines={2}>{item.name}</Text>
           <View style={styles.brandInfoContainer}>
             <View style={styles.brandSection}>
               <Image source={item.brandLogo} style={styles.brandLogo} />

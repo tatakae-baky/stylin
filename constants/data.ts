@@ -13,6 +13,16 @@ export interface Product {
 }
 
 export const products: Product[] = [
+    // Standalone Products (No Collection)
+  {
+    id: 'bo_standalone',
+    name: "Bo' Special Edition",
+    brand: 'Lilith',
+    price: 2800,
+    image: require('../assets/images/lilith/Bo`.jpg'),
+    brandLogo: require('../assets/images/lilith/lilith_logo.jpg'),
+    isCollectionItem: false,
+  },
   {
     id: 'jumpsuit_2',
     name: 'Jumpsuit Collection Item 2',
@@ -837,14 +847,4 @@ export const products: Product[] = [
     isCollectionItem: true,
   },
 
-  // Standalone Products (No Collection)
-  {
-    id: 'bo_standalone',
-    name: "Bo' Special Edition",
-    brand: 'Lilith',
-    price: 2800,
-    image: require('../assets/images/lilith/Bo`.jpg'),
-    brandLogo: require('../assets/images/lilith/lilith_logo.jpg'),
-    isCollectionItem: false,
-  },
 ]; 

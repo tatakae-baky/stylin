@@ -2,19 +2,18 @@ import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { FONTS, FONT_SIZES } from '../../../constants/fonts';
 
-const FILTER_OPTIONS = ['Brand', 'Price', 'Product', 'Category', 'Color', 'Size', 'Material', 'Style', 'Occasion', 'Season'];
+const FILTER_OPTIONS = ['All', 'Brand', 'Price', 'Product', 'Category', 'Color', 'Size', 'Material', 'Style', 'Occasion', 'Season'];
 
 interface FilterOptionsProps {
   onFilterSelect?: (filter: string) => void;
 }
 
 export default function FilterOptions({ onFilterSelect }: FilterOptionsProps) {
-  const [selectedFilter, setSelectedFilter] = useState<string | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<string>("All");
 
   const handleFilterPress = (option: string) => {
-    const newFilter = selectedFilter === option ? null : option;
-    setSelectedFilter(newFilter);
-    onFilterSelect?.(newFilter || '');
+    setSelectedFilter(option);
+    onFilterSelect?.(option);
   };
 
   return (
