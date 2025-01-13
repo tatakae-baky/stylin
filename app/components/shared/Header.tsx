@@ -4,7 +4,7 @@ import { Link, useRouter } from 'expo-router';
 import SearchBar from './SearchBar';
 import FilterOptions from './FilterOptions';
 import { FONTS, FONT_SIZES } from '../../../constants/fonts';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/_CartContext';
 
 interface HeaderProps {
   onSearch?: (text: string) => void;

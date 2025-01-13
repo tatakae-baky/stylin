@@ -80,7 +80,7 @@ const CartContext = createContext<{
   dispatch: React.Dispatch<CartAction>;
 } | null>(null);
 
-function CartProvider({ children }: { children: React.ReactNode }) {
+export function CartProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   return (
@@ -90,7 +90,7 @@ function CartProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-function useCart() {
+export function useCart() {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error('useCart must be used within a CartProvider');
@@ -98,5 +98,5 @@ function useCart() {
   return context;
 }
 
-export { CartProvider, useCart };
+export type { CartItem, CartState, CartAction };
 export default CartProvider; 

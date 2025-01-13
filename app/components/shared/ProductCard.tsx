@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { Link } from 'expo-router';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/_CartContext';
 import { Ionicons } from "@expo/vector-icons";
 
 interface ProductCardProps {

@@ -17,7 +17,7 @@ import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { Link, useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { useState, useEffect } from 'react';
-import { useCart } from '../../context/CartContext';
+import { useCart } from '../../context/_CartContext';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const SWIPE_THRESHOLD = 120;
