@@ -21,13 +21,15 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useCart } from '../../context/_CartContext';
 import * as Haptics from 'expo-haptics';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const NUM_COLUMNS = 2;
-const SPACING = 12;
-const COLUMN_WIDTH = (SCREEN_WIDTH - (SPACING * 3)) / NUM_COLUMNS;
+const SIDE_PADDING = 7;
+const COLUMN_GAP = 5;
+const COLUMN_WIDTH = (SCREEN_WIDTH - (2 * SIDE_PADDING + COLUMN_GAP)) / NUM_COLUMNS;
 const DEFAULT_ASPECT_RATIO = 4/3;
 
 interface ProductData {
@@ -213,31 +215,45 @@ export default function MasonryGrid({ data = [] }: MasonryGridProps) {
               </View>
             </View>
           )}
-        </View>
-        
-        <View style={styles.detailsContainer}>
-          <View style={styles.brandInfoContainer}>
-            <View style={styles.brandSection}>
-              <Image 
-                source={item.brandLogo} 
-                style={styles.brandLogo}
-                defaultSource={require('../../../assets/images/avatar-placeholder.jpg')}
-              />
-              <View style={styles.priceAndBrandContainer}>
-                <Text style={styles.price}>{item.price}</Text>
-                <Text style={styles.brandName}>{item.brandName}</Text>
-              </View>
-            </View>
-            <TouchableOpacity 
-              style={styles.addToCartButton}
-              onPress={(e) => handleAddToCart(e, item)}
+          
+          {/* Product details overlay */}
+          <View style={styles.overlayContainer}>
+            <LinearGradient
+              colors={['#000000', '#D9D9D900']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={styles.overlayGradient}
             >
-              <Ionicons 
-                name={recentlyAdded[item.id] ? "checkmark" : "add"}
-                size={20} 
-                color="#fff"
-              />
-            </TouchableOpacity>
+              <View style={styles.brandInfoContainer}>
+                <Image 
+                  source={item.brandLogo} 
+                  style={styles.brandLogo}
+                  defaultSource={require('../../../assets/images/avatar-placeholder.jpg')}
+                />
+                <View style={styles.detailsSection}>
+                  <View style={styles.priceSection}>
+                    <Text style={styles.priceAmount}>{item.price.split(' ')[0]}</Text>
+                    <Text style={styles.currency}>BDT</Text>
+                  </View>
+                  <View style={styles.nameSection}>
+                    <Text style={styles.brandName}>{item.brandName}</Text>
+                    <Text style={styles.productName} numberOfLines={1} ellipsizeMode="tail">
+                      {item.name}
+                    </Text>
+                  </View>
+                </View>
+                <TouchableOpacity 
+                  style={styles.addToCartButton}
+                  onPress={(e) => handleAddToCart(e, item)}
+                >
+                  <Ionicons 
+                    name={recentlyAdded[item.id] ? "checkmark" : "cart"}
+                    size={22} 
+                    color="#fff"
+                  />
+                </TouchableOpacity>
+              </View>
+            </LinearGradient>
           </View>
         </View>
       </AnimatedTouchableOpacity>
@@ -267,17 +283,17 @@ const styles = StyleSheet.create({
   },
   content: {
     flexDirection: 'row',
-    paddingHorizontal: SPACING,
-    paddingTop: SPACING * 0.5,
-    gap: SPACING,
+    paddingHorizontal: SIDE_PADDING,
+    paddingTop: SIDE_PADDING * 0.5,
+    gap: COLUMN_GAP,
   },
   column: {
     flex: 1,
-    gap: SPACING,
+    gap: 7,
   },
   itemContainer: {
     backgroundColor: 'white',
-    marginBottom: SPACING,
+    marginBottom: 0,
   },
   imageContainer: {
     borderRadius: 12,
@@ -317,50 +333,57 @@ const styles = StyleSheet.create({
   brandInfoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: 8,
-  },
-  brandSection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    gap: 8,
+    gap: 4,
   },
   brandLogo: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#fff',
   },
-  priceAndBrandContainer: {
+  detailsSection: {
     flex: 1,
     justifyContent: 'center',
   },
-  price: {
-    fontSize: 14,
+  priceSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+    marginBottom: 0,
+  },
+  priceAmount: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#fff',
+  },
+  currency: {
+    fontSize: 12,
     fontWeight: '600',
-    color: '#000',
-    marginBottom: 2,
+    color: '#fff',
+  },
+  nameSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
   },
   brandName: {
-    fontSize: 12,
-    color: '#666',
+    fontSize: 11,
+    color: '#fff',
+    fontWeight: '600',
+  },
+  productName: {
+    fontSize: 11,
+    color: '#fff',
+    opacity: 0.8,
+    flex: 1,
   },
   addToCartButton: {
-    backgroundColor: '#000',
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    backgroundColor: 'transparent',
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 3,
-    elevation: 3,
-    overflow: 'hidden',
   },
   addToCartButtonSuccess: {
     backgroundColor: '#000',
@@ -370,5 +393,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'transparent',
+  },
+  overlayContainer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  overlayGradient: {
+    padding: 6,
+    paddingVertical: 4,
+  },
+  nameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
 }); 

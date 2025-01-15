@@ -14,5 +14,10 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ]
+  ],
+  "scripts": {
+    "start": "NODE_OPTIONS=--max-old-space-size=8192 expo start",
+    "android": "NODE_OPTIONS=--max-old-space-size=8192 expo start --android",
+    "ios": "NODE_OPTIONS=--max-old-space-size=8192 expo start --ios"
+  }
 }

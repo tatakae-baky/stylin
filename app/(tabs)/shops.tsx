@@ -8,10 +8,10 @@ import { products, Product } from '../../constants/data';
 
 // Import ad banner images
 const adBanners = [
+  require('../../assets/images/ad_banners/Stylin AD.png'),
   require('../../assets/images/ad_banners/MegaBank AD.png'),
   require('../../assets/images/ad_banners/Swiggy AD.png'),
   require('../../assets/images/ad_banners/BigBasket AD.png'),
-  require('../../assets/images/ad_banners/Zomato AD.png'),
 ];
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
