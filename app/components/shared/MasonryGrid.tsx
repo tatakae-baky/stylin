@@ -21,6 +21,7 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useCart } from '../../context/_CartContext';
 import * as Haptics from 'expo-haptics';
@@ -219,7 +220,7 @@ export default function MasonryGrid({ data = [] }: MasonryGridProps) {
           {/* Product details overlay */}
           <View style={styles.overlayContainer}>
             <LinearGradient
-              colors={['#000000', '#D9D9D900']}
+              colors={['#0f0f0f', '#D9D9D900']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
               style={styles.overlayGradient}
@@ -246,11 +247,11 @@ export default function MasonryGrid({ data = [] }: MasonryGridProps) {
                   style={styles.addToCartButton}
                   onPress={(e) => handleAddToCart(e, item)}
                 >
-                  <Ionicons 
-                    name={recentlyAdded[item.id] ? "checkmark" : "cart"}
-                    size={22} 
-                    color="#fff"
-                  />
+                  {recentlyAdded[item.id] ? (
+                    <Ionicons name="checkmark" size={22} color="#fff" />
+                  ) : (
+                    <Feather name="shopping-bag" size={22} color="#fff" />
+                  )}
                 </TouchableOpacity>
               </View>
             </LinearGradient>
@@ -352,14 +353,16 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   priceAmount: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
     color: '#fff',
+    fontFamily: 'PlayfairDisplay-Bold',
   },
   currency: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '600',
     color: '#fff',
+    fontFamily: 'PlayfairDisplay-Bold',
   },
   nameSection: {
     flexDirection: 'row',
@@ -367,12 +370,12 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   brandName: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#fff',
-    fontWeight: '600',
+    fontWeight: '500',
   },
   productName: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#fff',
     opacity: 0.8,
     flex: 1,

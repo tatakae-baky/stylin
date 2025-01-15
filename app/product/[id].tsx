@@ -232,7 +232,7 @@ export default function ProductScreen() {
               <View className="flex-row items-start justify-between">
                 <View className="flex-1 mr-4">
                   <Text 
-                    style={{ fontFamily: FONTS.medium }} 
+                    style={{ fontFamily: FONTS.logo.extraBold }} 
                     className="text-xl text-gray-900"
                   >
                     {product?.name}

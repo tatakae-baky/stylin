@@ -27,6 +27,16 @@ export default function RootLayout() {
             <Stack
               screenOptions={{
                 headerShown: false,
+                animation: 'fade',
+                animationDuration: 200,
+                // Optimize for performance
+                freezeOnBlur: true,
+                autoHideHomeIndicator: true,
+                // Add nice transition
+                presentation: 'card',
+                gestureEnabled: true,
+                gestureDirection: 'horizontal',
+                fullScreenGestureEnabled: true,
               }}
             />
           </CartProvider>

@@ -146,7 +146,7 @@ export default function Cart() {
 
             {/* Shipping Method */}
             <View style={styles.shippingMethodSection}>
-              <Text style={styles.sectionTitle}>Shipping method</Text>
+              <Text style={styles.sectionTitle}>Delivery Method</Text>
               <View style={styles.shippingMethods}>
                 <TouchableOpacity 
                   style={[styles.shippingCard, styles.standardCard, selectedShipping === 'standard' && styles.selectedStandardCard]}
